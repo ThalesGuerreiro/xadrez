@@ -93,7 +93,44 @@ void move_peca(Tabuleiro *tabuleiro, Posicao origem, Posicao destino){
 }
 
 bool valida_movimento_peao(Tabuleiro *tabuleiro, Posicao origem, Posicao destino){
+    int dif_linha = origem.linha - destino.linha, 
+        dif_coluna = origem.coluna - destino.coluna;
 
+    if(origem.linha == destino.linha && origem.coluna == destino.coluna)
+        return false;
+
+    else if(tabuleiro->casas[destino.linha][destino.coluna].peca != VAZIO 
+    && tabuleiro->casas[destino.linha][destino.coluna].cor == tabuleiro->casas[origem.linha][origem.coluna].cor){
+
+        return false;
+    }
+
+    else if(tabuleiro->casas[origem.linha][origem.coluna].cor == BRANCO){
+        if(origem.linha == 6 && tabuleiro->casas[origem.linha-1][origem.coluna].peca == VAZIO)
+            if(dif_linha == -2 && dif_coluna == 0 && tabuleiro->casas[destino.linha][destino.coluna].peca == VAZIO)
+                return true;
+
+        else if(dif_linha == -1 && dif_coluna == 0 && tabuleiro->casas[destino.linha][destino.coluna].peca == VAZIO)
+            return true;
+
+        else if(dif_linha == -1 && abs(dif_coluna) == 1 && tabuleiro->casas[destino.linha][destino.coluna].peca != VAZIO)
+            return true;
+    }
+
+
+    else if(tabuleiro->casas[origem.linha][origem.coluna].cor == PRETO){
+        if(origem.linha == 1 && tabuleiro->casas[origem.linha+1][origem.coluna].peca == VAZIO)
+            if(dif_linha == 2 && dif_coluna == 0 && tabuleiro->casas[destino.linha][destino.coluna].peca == VAZIO)
+                return true;
+        
+        else if(dif_linha == 1 && dif_coluna == 0 && tabuleiro->casas[destino.linha][destino.coluna].peca == VAZIO)
+            return true;
+
+        else if(dif_linha == 1 && abs(dif_coluna) == 1 && tabuleiro->casas[destino.linha][destino.coluna].peca != VAZIO)
+            return true;
+    }
+
+    return false;
 }
 
 bool valida_movimento_torre(Tabuleiro *tabuleiro, Posicao origem, Posicao destino){
