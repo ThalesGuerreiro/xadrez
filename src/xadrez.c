@@ -130,3 +130,31 @@ bool valida_movimento_torre(Tabuleiro *tabuleiro, Posicao origem, Posicao destin
     else
         return true; 
 }
+
+bool valida_movimento_bispo(Tabuleiro *tabuleiro, Posicao origem, Posicao destino){
+
+    if(origem.linha == destino.linha && origem.coluna == destino.coluna){
+        return false;
+    }
+
+    int dif_linha = origem.linha - destino.linha,
+        dif_coluna = origem.coluna - destino.coluna;
+
+    if(abs(dif_linha) != abs(dif_coluna))
+        return false;
+
+    for(int i = 0; i < abs(dif_coluna)-1; i++){
+        if(tabuleiro->casas[origem.linha-dif_linha-i][origem.coluna-dif_coluna-i].peca != VAZIO)
+            return false;
+    }
+
+    if(tabuleiro->casas[destino.linha][destino.coluna].peca != VAZIO 
+    && tabuleiro->casas[destino.linha][destino.coluna].cor == tabuleiro->casas[origem.linha][origem.coluna].cor){
+
+        return false;
+    }
+
+    else
+        return true; 
+}
+
