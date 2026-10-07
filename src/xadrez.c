@@ -158,3 +158,13 @@ bool valida_movimento_bispo(Tabuleiro *tabuleiro, Posicao origem, Posicao destin
         return true; 
 }
 
+bool valida_movimento_rainha(Tabuleiro *tabuleiro, Posicao origem, Posicao destino){
+    if(valida_movimento_torre(tabuleiro, origem, destino))
+        return true;
+
+    else if(valida_movimento_bispo(tabuleiro, origem, destino))
+        return true;
+
+    else
+        return false;
+}
