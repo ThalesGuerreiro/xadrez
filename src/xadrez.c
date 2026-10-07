@@ -168,3 +168,24 @@ bool valida_movimento_rainha(Tabuleiro *tabuleiro, Posicao origem, Posicao desti
     else
         return false;
 }
+
+bool valida_movimento_cavalo(Tabuleiro *tabuleiro, Posicao origem, Posicao destino){
+
+    int dif_linha = origem.linha - destino.linha,
+        dif_coluna = origem.coluna - destino.coluna;
+    
+    if(origem.linha == destino.linha && origem.coluna == destino.coluna)
+        return false;
+
+    else if(tabuleiro->casas[destino.linha][destino.coluna].peca != VAZIO 
+    && tabuleiro->casas[destino.linha][destino.coluna].cor == tabuleiro->casas[origem.linha][origem.coluna].cor){
+
+        return false;
+    }
+
+    else if(!((abs(dif_linha) == 2 && abs(dif_coluna) == 1) || (abs(dif_linha) == 1 && abs(dif_coluna) == 2)))
+        return false;
+    
+    else
+        return true;
+}
